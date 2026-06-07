@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerenciador Inteligente de Tarefas</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <h1>Gerenciador Inteligente de Tarefas</h1>
+
+    <textarea id="texto" placeholder="Digite suas tarefas..."></textarea>
+    <button onclick="enviarTexto()">Processar</button>
+
+    <div id="calendario-container">
+        <div id="calendario-header">
+            <button id="prev">◀</button>
+            <h2 id="mes-ano"></h2>
+            <button id="next">▶</button>
+        </div>
+
+        <div id="dias-semana">
+            <div>Dom</div>
+            <div>Seg</div>
+            <div>Ter</div>
+            <div>Qua</div>
+            <div>Qui</div>
+            <div>Sex</div>
+            <div>Sáb</div>
+        </div>
+
+        <div id="dias"></div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

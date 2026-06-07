@@ -1,33 +1,54 @@
-let calendario;
+let dataAtual = new Date();
 
-document.addEventListener("DOMContentLoaded", async function () {
-    const calendarEl = document.getElementById("calendario");
+document.addEventListener("DOMContentLoaded", () => {
+    renderizarCalendario();
 
-    calendario = new FullCalendar.Calendar(calendarEl, {
-        initialView: "dayGridMonth",
-        locale: "pt-br",
-        events: []
+    document.getElementById("prev").addEventListener("click", () => {
+        dataAtual.setMonth(dataAtual.getMonth() - 1);
+        renderizarCalendario();
     });
 
-    calendario.render();
+    document.getElementById("next").addEventListener("click", () => {
+        dataAtual.setMonth(dataAtual.getMonth() + 1);
+        renderizarCalendario();
+    });
 
-    await carregarTarefas();
+    carregarTarefas();
 });
 
+function renderizarCalendario() {
+    const ano = dataAtual.getFullYear();
+    const mes = dataAtual.getMonth();
+
+    const primeiroDia = new Date(ano, mes, 1);
+    const ultimoDia = new Date(ano, mes + 1, 0);
+
+    const diasDiv = document.getElementById("dias");
+    diasDiv.innerHTML = "";
+
+    document.getElementById("mes-ano").innerText =
+        dataAtual.toLocaleString("pt-BR", { month: "long", year: "numeric" });
+
+    // Espaços vazios antes do primeiro dia
+    for (let i = 0; i < primeiroDia.getDay(); i++) {
+        diasDiv.innerHTML += "<div></div>";
+    }
+
+    // Dias do mês
+    for (let dia = 1; dia <= ultimoDia.getDate(); dia++) {
+        diasDiv.innerHTML += `<div>${dia}</div>`;
+    }
+}
+
+// -------------------
+// Comunicação com Flask
+// -------------------
 
 async function carregarTarefas() {
     const resp = await fetch("/api/tarefas");
     const tarefas = await resp.json();
-
-    tarefas.forEach(t => {
-        calendario.addEvent({
-            title: t.titulo,
-            start: t.prazo,
-            allDay: true
-        });
-    });
+    console.log("Tarefas carregadas:", tarefas);
 }
-
 
 async function enviarTexto() {
     const texto = document.getElementById("texto").value;
@@ -39,14 +60,7 @@ async function enviarTexto() {
     });
 
     const novas = await resp.json();
-
-    novas.forEach(t => {
-        calendario.addEvent({
-            title: t.titulo,
-            start: t.prazo,
-            allDay: true
-        });
-    });
+    console.log("Tarefas novas:", novas);
 
     document.getElementById("texto").value = "";
 }
