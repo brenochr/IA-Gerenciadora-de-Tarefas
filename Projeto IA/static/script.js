@@ -1,12 +1,7 @@
 let dataAtual = new Date();
 
-// Estrutura de lembretes por data (a IA vai preencher isso futuramente)
+// Estrutura de lembretes por data (tarefas ativas)
 let lembretes = {};
-
-// EXEMPLO MANUAL PARA TESTE
-lembretes["2026-06-14"] = [
-    { texto: "entrega do projeto", prioridade: "alta" }
-];
 
 document.addEventListener("DOMContentLoaded", () => {
     renderizarCalendario();
@@ -28,6 +23,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const dataHoje = `${hoje.getFullYear()}-${String(hoje.getMonth()+1).padStart(2,"0")}-${String(hoje.getDate()).padStart(2,"0")}`;
     selecionarDia(dataHoje);
 });
+
+
+// ============================================================
+//  CALENDÁRIO
+// ============================================================
 
 function renderizarCalendario() {
     const ano = dataAtual.getFullYear();
@@ -84,7 +84,11 @@ function renderizarCalendario() {
     }
 }
 
-// Atualiza o painel lateral com a data selecionada
+
+// ============================================================
+//  PAINEL LATERAL
+// ============================================================
+
 function selecionarDia(data) {
     const painelData = document.getElementById("painel-data");
     const lista = document.getElementById("lista-lembretes");
@@ -128,15 +132,64 @@ function selecionarDia(data) {
     });
 }
 
-// -------------------
-// Comunicação com Flask
-// -------------------
+
+// ============================================================
+//  TAREFAS PASSADAS
+// ============================================================
+
+function renderizarTarefasPassadas(lista) {
+    const ul = document.getElementById("lista-passadas");
+    ul.innerHTML = "";
+
+    lista.forEach(t => {
+        const li = document.createElement("li");
+        li.classList.add("passada-item");
+
+        const bolinha = document.createElement("div");
+        bolinha.classList.add("bolinha-lista");
+
+        if (t.prioridade === "alta") bolinha.classList.add("bolinha-vermelha");
+        else if (t.prioridade === "média") bolinha.classList.add("bolinha-amarela");
+        else bolinha.classList.add("bolinha-verde");
+
+        const dataFormatada = new Date(t.prazo).toLocaleDateString("pt-BR", {
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+        });
+
+        const texto = document.createElement("span");
+        texto.innerText = t.titulo;
+
+        const dataSpan = document.createElement("span");
+        dataSpan.classList.add("passada-data");
+        dataSpan.innerText = dataFormatada;
+
+        li.appendChild(bolinha);
+        li.appendChild(texto);
+        li.appendChild(dataSpan);
+
+        ul.appendChild(li);
+    });
+}
+
+
+// ============================================================
+//  COMUNICAÇÃO COM FLASK
+// ============================================================
 
 async function carregarTarefas() {
     const resp = await fetch("/api/tarefas");
-    const tarefas = await resp.json();
+    const dados = await resp.json();
 
-    tarefas.forEach(t => {
+    const tarefasAtivas = dados.ativas;
+    const tarefasPassadas = dados.passadas;
+
+    // limpar lembretes
+    lembretes = {};
+
+    // carregar tarefas ativas no calendário
+    tarefasAtivas.forEach(t => {
         if (!lembretes[t.prazo]) lembretes[t.prazo] = [];
         lembretes[t.prazo].push({
             texto: t.titulo,
@@ -145,7 +198,9 @@ async function carregarTarefas() {
     });
 
     renderizarCalendario();
+    renderizarTarefasPassadas(tarefasPassadas);
 }
+
 
 async function enviarTexto() {
     const texto = document.getElementById("texto").value;
@@ -167,5 +222,6 @@ async function enviarTexto() {
     });
 
     renderizarCalendario();
+    carregarTarefas(); // recarrega tarefas passadas também
     document.getElementById("texto").value = "";
 }

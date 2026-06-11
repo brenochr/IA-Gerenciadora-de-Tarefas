@@ -2,19 +2,47 @@
     {
         "titulo": "Tarefa gerada pela IA",
         "prioridade": "alta",
-        "prazo": "2026-06-06",
-        "duracao_minutos": 60
-    },
-    {
-        "titulo": "Tarefa gerada pela IA",
-        "prioridade": "alta",
-        "prazo": "2026-06-06",
-        "duracao_minutos": 60
-    },
-    {
-        "titulo": "Tarefa gerada pela IA",
-        "prioridade": "alta",
         "prazo": "2026-06-11",
         "duracao_minutos": 60
+    },
+    {
+        "titulo": "teste",
+        "prazo": "2026-06-11",
+        "prioridade": "baixa"
+    },
+    {
+        "acao": "adicionar",
+        "titulo": "tarefa teste",
+        "prazo": "2026-06-11",
+        "prioridade": "baixa"
+    },
+    {
+        "acao": "adicionar",
+        "titulo": "Entregar tarefa de teste",
+        "prazo": "2026-06-14",
+        "prioridade": "alta"
+    },
+    {
+        "acao": "adicionar",
+        "titulo": "Tarefa para entregar dia 15 de junho de 2026, na segunda",
+        "prazo": "2026-06-15",
+        "prioridade": "alta"
+    },
+    {
+        "titulo": "Tarefa gerada pela IA",
+        "prioridade": "alta",
+        "prazo": "2026-06-06",
+        "duracao_minutos": 60
+    },
+    {
+        "titulo": "Tarefa gerada pela IA",
+        "prioridade": "alta",
+        "prazo": "2026-06-06",
+        "duracao_minutos": 60
+    },
+    {
+        "titulo": "```json\n{\n  \"acao\": \"adicionar\",\n  \"titulo\": \"Entregar projeto de extensão\",\n  \"prazo\": \"2024--\",\n  \"prioridade\": \"\"\n}\n```\nObs: No exemplo o prazo da tarefa foi definido para o ano 2024. Caso seja necessário, pode ser alterado para 2025 ou 2026, conforme o usuário tiver conhecimentos.",
+        "prazo": "2026-06-06",
+        "prioridade": "alta"
     }
 ]

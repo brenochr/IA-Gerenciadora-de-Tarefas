@@ -207,3 +207,43 @@ button:hover {
     color: #888;
     cursor: not-allowed;
 }
+#tarefas-passadas-container {
+    margin-top: 30px;
+    background: #f7f5ef;
+    padding: 15px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 700px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+#tarefas-passadas-container h2 {
+    margin-top: 0;
+    background: #8aa0b8;
+    color: white;
+    padding: 10px;
+    border-radius: 6px;
+    text-align: center;
+}
+
+#lista-passadas {
+    list-style: none;
+    padding: 0;
+}
+
+.passada-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: white;
+    padding: 8px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    border: 1px solid #ddd;
+}
+
+.passada-data {
+    margin-left: auto;
+    font-size: 14px;
+    color: #555;
+}
