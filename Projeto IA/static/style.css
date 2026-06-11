@@ -1,14 +1,29 @@
-body {
+/* ===========================
+   ESTILO GERAL DA PÁGINA
+   =========================== */
+
+   body {
     font-family: Arial, sans-serif;
     margin: 20px;
     background: #f4f4f4;
 }
+
+h1 {
+    margin-bottom: 20px;
+}
+
+/* ===========================
+   ÁREA DE TEXTO E BOTÃO
+   =========================== */
 
 textarea {
     width: 100%;
     height: 120px;
     padding: 10px;
     font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    resize: none;
 }
 
 button {
@@ -16,7 +31,19 @@ button {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
+    border: none;
+    background: #007bff;
+    color: white;
+    border-radius: 6px;
 }
+
+button:hover {
+    background: #0056b3;
+}
+
+/* ===========================
+   CALENDÁRIO
+   =========================== */
 
 #calendario-container {
     margin-top: 30px;
@@ -25,31 +52,158 @@ button {
     border-radius: 10px;
     width: 100%;
     max-width: 700px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
+/* Cabeçalho do calendário */
 #calendario-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-#dias-semana, #dias {
+#calendario-header button {
+    background: #444;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+
+#calendario-header button:hover {
+    background: #222;
+}
+
+#mes-ano {
+    text-transform: capitalize;
+}
+
+/* Dias da semana */
+#dias-semana {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* Grid dos dias */
+#dias {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     text-align: center;
     margin-top: 10px;
 }
 
-#dias-semana div {
-    font-weight: bold;
-}
-
-#dias div {
+/* Cada dia */
+.dia {
+    position: relative;
     padding: 10px;
     border: 1px solid #ddd;
     min-height: 60px;
+    cursor: pointer;
+    background: #fafafa;
 }
 
-#dias div:hover {
+.dia:hover {
     background: #e8e8e8;
+}
+
+/* Número do dia */
+.numero-dia {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* ===========================
+   BOLINHAS DE PRIORIDADE
+   =========================== */
+
+.bolinha {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+
+.bolinha-vermelha {
+    background: red;
+}
+
+.bolinha-amarela {
+    background: gold;
+}
+
+.bolinha-verde {
+    background: green;
+}
+/* Layout lado a lado */
+#layout {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* Painel lateral */
+#painel-dia {
+    width: 280px;
+    background: #f7f5ef;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+/* Cabeçalho do painel */
+#painel-header {
+    background: #8aa0b8;
+    padding: 12px;
+}
+
+#painel-header h2 {
+    margin: 0;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Corpo do painel */
+#painel-corpo {
+    padding: 15px;
+}
+
+/* Lista de lembretes */
+#lista-lembretes {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.lembrete-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: white;
+    padding: 8px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    border: 1px solid #ddd;
+}
+
+/* Bolinhas dentro do painel */
+.bolinha-lista {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+}
+
+.bolinha-vermelha { background: red; }
+.bolinha-amarela { background: gold; }
+.bolinha-verde { background: green; }
+
+/* Dias passados desabilitados */
+.dia-passado {
+    background: #e0e0e0 !important;
+    color: #888;
+    cursor: not-allowed;
 }
